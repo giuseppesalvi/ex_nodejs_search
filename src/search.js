@@ -1,5 +1,3 @@
-//import { createReadStream } from "fs";
-//import { ReadLine } from "readline";
 const readline = require("readline");
 const fs = require("fs");
 
@@ -16,26 +14,13 @@ const filePath = argv[2];
 const column = argv[3];
 const key =  argv[4];
 
+// Create a readline interface for the file
 const rl = readline.createInterface({input: fs.createReadStream(filePath)});
 
+// Read the file line by line asynchronously and search for the key in the column
 rl.on("line", (line) => {
   if(line.split(/,|;/)[column] == key) {
+    // Print the result
     console.log(line)
-    rl.close();
   }
 });
-rl.close();
-
-
-// Read a file line by line synchronously
-//const fileContent = readFileSync(filePath, "utf8");
-
-
-// Search for the first line with key in the column
-//const found = fileContent
-//  .toString()
-//  .split(/\r?\n/)
-//  .find((line) => line.split(/,|;/)[column] == key);
-
-// Print the result
-//console.log(found ? found : "Not found");
