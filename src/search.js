@@ -1,26 +1,41 @@
+//import { createReadStream } from "fs";
+//import { ReadLine } from "readline";
+const readline = require("readline");
 const fs = require("fs");
 
 // Read arguments from command line
-const args = process.argv;
 
 // Check if the number of arguments is correct
-if(args.length != 5) {
+const argv = process.argv
+if(argv.length != 5) {
   console.log("Usage: node src/search.js <file_path> <column> <key>");
   process.exit(1);
 }
 
-const filePath = args[2];
-const column = args[3];
-const key =  args[4];
+const filePath = argv[2];
+const column = argv[3];
+const key =  argv[4];
+
+const rl = readline.createInterface({input: fs.createReadStream(filePath)});
+
+rl.on("line", (line) => {
+  if(line.split(/,|;/)[column] == key) {
+    console.log(line)
+    rl.close();
+  }
+});
+rl.close();
+
 
 // Read a file line by line synchronously
-const fileContent = fs.readFileSync(filePath, "utf8");
+//const fileContent = readFileSync(filePath, "utf8");
+
 
 // Search for the first line with key in the column
-const found = fileContent
-  .toString()
-  .split(/\r?\n/)
-  .find((line) => line.split(/,|;/)[column] == key);
+//const found = fileContent
+//  .toString()
+//  .split(/\r?\n/)
+//  .find((line) => line.split(/,|;/)[column] == key);
 
 // Print the result
-console.log(found ? found : "Not found");
+//console.log(found ? found : "Not found");
