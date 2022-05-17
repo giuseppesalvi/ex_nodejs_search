@@ -1,4 +1,4 @@
-const fs = require("fs");
+import { readFileSync } from "fs";
 
 // Read arguments from command line
 const args = process.argv;
@@ -14,7 +14,7 @@ const column = args[3];
 const key = args[4];
 
 // Read a file line by line synchronously
-const fileContent = fs.readFileSync(filePath, "utf8");
+const fileContent = readFileSync(filePath, "utf8");
 
 // Search for the FIRST line with key in the column
 const found = fileContent
